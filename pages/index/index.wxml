@@ -1,0 +1,96 @@
+<!--index.wxml-->
+<view class="container">
+  <swiper class='swiper' autoplay='{{autoplay}}' indicator-dots='{{indicatordots}}' circular='{{circular}}'>
+    <block wx:for="{{imageURL}}" wx:for-index="index" wx:key="index">
+        <swiper-item style="margin: 0px;padding: 0px"> 
+            <image src="{{item}}" class='swiperIMG'></image>
+        </swiper-item>
+    </block>
+  </swiper>
+  <view class='chooseMenu'>
+    <div class="menuItem">
+        <div class="item">
+            <image class='itemIcon' src='../assets/images/icons/used.png'></image>
+            <p class="itemTitle">二手交易</p>
+        </div>
+    </div>
+     <div class="menuItem">
+        <div class="item">
+            <image class='itemIcon' src='../assets/images/icons/express.png'></image>
+             <p class="itemTitle">快递服务</p>
+        </div>
+    </div>
+     <div class="menuItem">
+        <div class="item">
+            <image class='itemIcon' src='../assets/images/icons/lost.png'></image>
+             <p class="itemTitle">失物招领</p>
+        </div>
+    </div>
+     <div class="menuItem">
+        <div class="item">
+            <image class='itemIcon' src='../assets/images/icons/broadcast.png'></image>
+             <p class="itemTitle">校园动态</p>
+        </div>
+    </div>
+  </view>
+  <view class='newsBox'>
+    <div class="newsTitle">
+        <icon class='newsTitleIcon' type='waiting' size='14' color='#10AEFF'></icon>
+       <span > 最新动态</span>
+    </div>
+    <block wx:for="{{newsList}}" wx:for-index = "index" wx:key="index">
+         <div class="newsItem">
+        <image class='newsImage' src='{{item.newsImgURL}}'></image>
+        <div class="newsContent">
+                <p class="newsUser">
+                    <image class='userFront' src='{{userInfo.avatarUrl}}'></image>
+                     <span class="userName">{{item.newsUser}}</span>
+                </p>
+                 <p class="newsDescription">
+                    <span class='description'>{{item.newsDescription}}</span>
+                </p>
+                <p class="newsAbout">
+                    <image src='../assets/images/icons/find.png' class='aboutIcon'></image><span class="aboutCount">{{item.findCount}}</span>
+                    <image src='../assets/images/icons/message.png' class='aboutIcon'></image><span  class="aboutCount">{{item.messageCount}}</span>
+                </p>
+            </div>
+         </div>
+    </block>
+  </view>
+  <view class='integralBox'>
+    <div class="integralTitle">
+        <image class='integralIcon' src='../assets/images/icons/integral.png'></image>
+        <span>积分榜单</span>
+    </div>
+    <div class="integralShow">
+        <div class="integralItem">
+            <div class="integralUser firstUser">
+                <div>
+                    <image class='championIcon' src='../assets/images/icons/king.png'></image>
+                    <image class='integralUserFront championFront' src='{{integralData.champion.userFront}}'></image>
+                     <span class="integralUserName">{{integralData.champion.userName}}</span>
+                </div>
+            </div>
+            <div class="integralUser secondUser">
+                <div>
+                    <image class='integralUserFront unChampionFront' src='{{integralData.runnerUp.userFront}}'></image>
+                    <span class="integralUserName">{{integralData.runnerUp.userName}}</span>
+                </div>
+            </div>
+            <div class="integralUser thirdUser">
+                 <div>
+                    <image class='integralUserFront unChampionFront' src='{{integralData.thirdRunner.userFront}}'></image>
+                    <span class="integralUserName">{{integralData.thirdRunner.userName}}</span>
+                 </div>
+            </div>
+        </div>
+        <div class="integralTips">
+            <image src='../assets/images/icons/trumpet.png' class='integralTipsIcon'></image>
+            <span class='integralTipsText'>: 积分积累到一定程度可以换取奖励呦～</span>
+        </div>
+    </div>
+  </view>
+  <view class='footer'>
+    <p class="footerText">——————— 到底了还拉  ————————</p>
+  </view>
+</view>
