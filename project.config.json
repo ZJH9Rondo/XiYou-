@@ -1,5 +1,9 @@
 {
 	"description": "项目配置文件。",
+	"client": "./client",
+	"svr": "./server",
+	"miniprogramRoot": "./client",
+	"qcloudRoot": "./server",
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
@@ -8,8 +12,8 @@
 	},
 	"compileType": "weapp",
 	"libVersion": "1.6.0",
-	"appid": "wx472ffecb0e19b39d",
-	"projectname": "Xiyou%E5%BF%85%E5%88%B0",
+	"appid": "",
+	"projectname": "XiYou%E5%B0%8F%E9%99%8C",
 	"condition": {
 		"weapp": {
 			"current": -1,

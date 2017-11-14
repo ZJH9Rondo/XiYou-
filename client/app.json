@@ -1,0 +1,22 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/admin/admin",
+        "pages/lost/lost",
+        "pages/express/express",
+        "pages/used/used",
+        "pages/chat/chat"
+    ],
+    "window": {
+        "backgroundTextStyle": "dark",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "XiYou小陌",
+        "navigationBarTextStyle": "black",
+        "enablePullDownRefresh": true
+    },
+    "networkTimeout": {
+        "request": 10000,
+        "downloadFile": 10000
+    },
+    "debug": true
+}
