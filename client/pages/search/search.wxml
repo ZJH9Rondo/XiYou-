@@ -1,0 +1,16 @@
+<view class="container">
+    <view wx:if="{{connectStatus}}">
+        <text>{{connectText}}</text>
+    </view>
+    <view wx:elif="{{chatStatus}}" class='serchSocketPage'>
+        <div class="serchPage">
+            <div class="sendUserFront">
+                <image src="{{sendUserFront}}" class='userFront'></image>
+            </div>
+            <div class='buttonGroups'>
+                <button class='userButton' type='primary' bindtap='serchUser'>咻一咻</button>
+                <button class='userButton' type='warn' bindtap='closeConnect'>取消</button>
+            </div>
+        </div>
+    </view>
+</view>

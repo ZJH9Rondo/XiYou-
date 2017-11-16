@@ -1,0 +1,48 @@
+/* pages/chat/chat.wxss */
+.serchSocketPage{
+   position: relative;
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #fff, #ccc);
+}
+
+/**
+*   搜索用户界面
+*/
+.serchPage{
+    width: 100%;
+    height: 700rpx;
+    display: block;
+}
+.sendUserFront{
+    width: 220rpx;
+    height: 220rpx;
+    display: block;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+}
+.userFront{
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+}
+.buttonGroups{
+    width: 100%;
+    height: 70rpx;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 200rpx;
+}
+.userButton{
+    width: 160rpx;
+    height: 70rpx;
+    border-radius: 10rpx;
+    font-size: 32rpx;
+}

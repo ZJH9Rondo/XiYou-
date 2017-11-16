@@ -1,4 +1,4 @@
-// pages/boardcast/boardcast.js
+// pages/chat/serch.js
 Page({
 
   /**

@@ -43,3 +43,7 @@ typings/
 sh/
 # ignore test sdk.config.json
 sdk.config.json
+# config and qcolud config
+!./client/config.js
+!./server/config.js
+!./server/qcloud.js

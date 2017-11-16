@@ -1,11 +1,10 @@
 {
     "pages": [
         "pages/index/index",
-        "pages/admin/admin",
         "pages/lost/lost",
         "pages/express/express",
         "pages/used/used",
-        "pages/chat/chat"
+        "pages/search/search"
     ],
     "window": {
         "backgroundTextStyle": "dark",

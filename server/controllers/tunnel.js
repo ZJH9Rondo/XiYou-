@@ -1,15 +1,6 @@
 const { tunnel } = require('../qcloud')
+const { mysql } = require('../qcloud')
 const debug = require('debug')('koa-weapp-demo')
-
-/**
- * 这里实现一个简单的聊天室
- * userMap 为 tunnelId 和 用户信息的映射
- * 实际使用请使用数据库存储
- */
-const userMap = {}
-
-// 保存 当前已连接的 WebSocket 信道ID列表
-const connectedTunnelIds = []
 
 /**
  * 调用 tunnel.broadcast() 进行广播
@@ -17,31 +8,37 @@ const connectedTunnelIds = []
  * @param  {String} content 消息内容
  */
 const $broadcast = (type, content) => {
-    tunnel.broadcast(connectedTunnelIds, type, content)
-        .then(result => {
-            const invalidTunnelIds = result.data && result.data.invalidTunnelIds || []
+    // tunnel.broadcast(connectedTunnelIds, type, content)
+    //     .then(result => {
+    //         const invalidTunnelIds = result.data && result.data.invalidTunnelIds || []
 
-            if (invalidTunnelIds.length) {
-                console.log('检测到无效的信道 IDs =>', invalidTunnelIds)
+    //         if (invalidTunnelIds.length) {
+    //             console.log('检测到无效的信道 IDs =>', invalidTunnelIds)
 
-                // 从 userMap 和 connectedTunnelIds 中将无效的信道记录移除
-                invalidTunnelIds.forEach(tunnelId => {
-                    delete userMap[tunnelId]
+    //             // 从 userMap 和 connectedTunnelIds 中将无效的信道记录移除
+    //             invalidTunnelIds.forEach(tunnelId => {
 
-                    const index = connectedTunnelIds.indexOf(tunnelId)
-                    if (~index) {
-                        connectedTunnelIds.splice(index, 1)
-                    }
-                })
-            }
-        })
+    //                 const index = connectedTunnelIds.indexOf(tunnelId)
+    //                 if (~index) {
+    //                     connectedTunnelIds.splice(index, 1)
+    //                 }
+    //             })
+    //         }
+    //     })
 }
 
 /**
+ * 调用TunnelService.emit(tunnelId: string, messageType: string, messageContent: any) 发送消息到指定信道
+ * @param tunnelId messageType messageContent 均为必填参数
+ */
+
+
+/**
  * 调用 TunnelService.closeTunnel() 关闭信道
- * @param  {String} tunnelId 信道ID
+ * @param  {String} tunnelId 信道ID 用于关闭指定信道
  */
 const $close = (tunnelId) => {
+
     tunnel.closeTunnel(tunnelId)
 }
 
@@ -53,17 +50,17 @@ const $close = (tunnelId) => {
 function onConnect (tunnelId) {
     console.log(`[onConnect] =>`, { tunnelId })
 
-    if (tunnelId in userMap) {
-        connectedTunnelIds.push(tunnelId)
+    // if (tunnelId in userMap) {
+    //     connectedTunnelIds.push(tunnelId)
 
-        $broadcast('people', {
-            'total': connectedTunnelIds.length,
-            'enter': userMap[tunnelId]
-        })
-    } else {
-        console.log(`Unknown tunnelId(${tunnelId}) was connectd, close it`)
-        $close(tunnelId)
-    }
+    //     $broadcast('people', {
+    //         'total': connectedTunnelIds.length,
+    //         'enter': userMap[tunnelId]
+    //     })
+    // } else {
+    //     console.log(`Unknown tunnelId(${tunnelId}) was connectd, close it`)
+    //     $close(tunnelId)
+    // }
 }
 
 /**
@@ -77,14 +74,14 @@ function onMessage (tunnelId, type, content) {
 
     switch (type) {
         case 'speak':
-            if (tunnelId in userMap) {
-                $broadcast('speak', {
-                    'who': userMap[tunnelId],
-                    'word': content.word
-                })
-            } else {
-                $close(tunnelId)
-            }
+            // if (tunnelId in userMap) {
+            //     $broadcast('speak', {
+            //         'who': userMap[tunnelId],
+            //         'word': content.word
+            //     })
+            // } else {
+            //     $close(tunnelId)
+            // }
             break
 
         default:
@@ -102,34 +99,33 @@ function onClose (tunnelId) {
 
     if (!(tunnelId in userMap)) {
         console.log(`[onClose][Invalid TunnelId]=>`, tunnelId)
+
         $close(tunnelId)
         return
     }
 
-    const leaveUser = userMap[tunnelId]
-    delete userMap[tunnelId]
-
-    const index = connectedTunnelIds.indexOf(tunnelId)
-    if (~index) {
-        connectedTunnelIds.splice(index, 1)
-    }
+    // const index = connectedTunnelIds.indexOf(tunnelId)
+    // if (~index) {
+    //     connectedTunnelIds.splice(index, 1)
+    // }
 
     // 聊天室没有人了（即无信道ID）不再需要广播消息
-    if (connectedTunnelIds.length > 0) {
-        $broadcast('people', {
-            'total': connectedTunnelIds.length,
-            'leave': leaveUser
-        })
-    }
+    // 查询数据库 connectUser 表确认当前连接信道 信息
 }
 
 module.exports = {
     // 小程序请求 websocket 地址
     get: async ctx => {
         const data = await tunnel.getTunnelUrl(ctx.req)
-        const tunnelInfo = data.tunnel
+        const tunnelId = data.tunnel.tunnelId
+        const userInfo = JSON.stringify(data.userinfo)
 
-        userMap[tunnelInfo.tunnelId] = data.userinfo
+        /**
+         * 维护当前链接的信道列表，tunnelId 存入数据库
+        */
+        await mysql('connectUser').insert({ tunnel_id: tunnelId, user_info: userInfo})
+
+        const tunnelInfo = data.tunnel
 
         ctx.state.data = tunnelInfo
     },
@@ -149,6 +145,7 @@ module.exports = {
                 break
             case 'close':
                 onClose(packet.tunnelId)
+                await mysql('connectUser').where({ tunnel_id: packet.tunnelId }).delete()
                 break
         }
     }

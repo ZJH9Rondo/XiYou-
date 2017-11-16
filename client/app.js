@@ -17,6 +17,8 @@ App({
            url: config.service.requestUrl,
            success: response => {
                 that.globalData.userInfo = response.data.data
+                that.globalData.config = config
+                that.globalData.qcloud = qcloud
                 console.log(that.globalData.userInfo)
            },
             fail: response => {
@@ -25,6 +27,8 @@ App({
        })
     },
     globalData: {
-        userInfo: null
+        userInfo: null,
+        config: null,
+        qcloud: null
     }
 })
