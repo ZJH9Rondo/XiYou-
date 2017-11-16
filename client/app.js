@@ -10,7 +10,7 @@ App({
        // 小程序登录请求
        //  BUG: 如果测试期间，发现打印 qcloud.login下的 res 为 undefined ，请直接清楚缓存后重新测试，这里是官方 SDK 的问题，无需担心。
        qcloud.setLoginUrl(config.service.loginUrl);
-
+       
       // 校验登录态
        qcloud.request({
            login: true,
