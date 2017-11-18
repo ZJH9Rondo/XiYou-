@@ -1,0 +1,68 @@
+<view class='container'>
+    <view class='chatPage'>
+        <div class='messageContainer'>
+            <div class="messageItem">
+                <div class="receive">
+                    <div class="userFront">
+                    </div>
+                    <div class="content">
+                        我不知道你是不是爱我
+                    </div>
+                </div>
+            </div>
+            <div class="messageItem">
+                <div class="send">
+                        <div class="userFront">
+                        </div>
+                        <div class="content">
+                            我不知道你是不是爱我
+                        </div>
+                </div>
+            </div>
+            <div class="messageItem">
+                <div class="send">
+                        <div class="userFront">
+                        </div>
+                        <div class="content">
+                            我不知道你是不是爱我
+                        </div>
+                </div>
+            </div>
+            <div class="messageItem">
+                <div class="send">
+                        <div class="userFront">
+                        </div>
+                        <div class="content">
+                            我不知道你是不是爱我
+                        </div>
+                </div>
+            </div>
+            <div class="messageItem">
+                <div class="receive">
+                    <div class="userFront">
+                    </div>
+                    <div class="content">
+                        我不知道你是不是爱我
+                    </div>
+                </div>
+            </div>
+            <div class="messageItem">
+                <div class="receive">
+                    <div class="userFront">
+                    </div>
+                    <div class="content">
+                        我不知道你是不是爱我
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="inputContainer">
+            <div class='messageInput'>
+                <input bindinput='getMessageText' auto-focus></input>
+            </div>
+            <div class='sendButton' bindtap = 'sendMessage'>
+                <image src='../assets/images/icons/send.png'></image>
+            </div>
+        </div>
+    </view>
+</view>
