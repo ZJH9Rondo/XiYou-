@@ -1,0 +1,103 @@
+.chatPage{
+    width: 100%;
+    height: auto;
+    max-height: 100vh;
+    overflow: hidden;
+}
+/**
+* 对话框样式
+*/
+.messageContainer{
+    width: 100%;
+    height: 94vh;
+    display: block;
+    overflow-y: scroll;
+}
+.messageItem{
+    width: 95%;
+    height: auto;
+    display: block;
+    margin-top: 20rpx;
+    margin-left: auto;
+    margin-right: auto;
+}
+.receive{
+    width: 60%;
+    height: 100rpx;
+    display: block;
+}
+.send{
+    width: 60%;
+    height: 300rpx;
+    display: block;
+    margin-left: 40%;
+}
+.userFront{
+    width: 100rpx;
+    height: 100rpx;
+    display: block;
+    border-radius: 50%;
+    background: gold;
+}
+.receive>.userFront{
+    float: left;
+}
+.send>.userFront{
+    float: right;
+}
+.content{
+    display: block;
+    font-size: 28rpx;
+    padding-top: 20rpx;
+}
+.receive>.content{
+    margin-left: 110rpx;
+}
+.send>.content{
+    margin-right: 110rpx;
+}
+/**
+*   输入框样式
+*/
+.inputContainer{
+    width: 100%;
+    height: 6vh;
+    display: block;
+}
+.messageInput{
+    width: 80%;
+    height: 6vh;
+    float: left;
+    display: block;
+}
+.messageInput>input{
+    width: 95%;
+    height: 5vh;
+    top: 10rpx;
+    margin-left: 20rpx;
+    font-size: 30rpx;
+    border: 0;
+    border-bottom: 2rpx solid #cccccc;
+}
+.sendButton{
+    width: 12%;
+    height: 4vh;
+    display: block;
+    margin-left: 82%;
+    top: 10rpx; 
+    border: 2rpx solid #cccccc;
+    border-radius: 4rpx;
+    position: relative;
+    overflow: hidden;
+}
+.sendButton>image{
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    background-repeat: no-repeat;
+}
