@@ -1,48 +1,92 @@
 /* pages/chat/chat.wxss */
-.serchSocketPage{
-   position: relative;
+.searchBackground{
+   position: absolute;
     width: 100%;
     height: 100vh;
     margin: 0 auto;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display:  block;
     background: linear-gradient(180deg, #fff, #ccc);
 }
 
 /**
 *   搜索用户界面
 */
-.serchPage{
+.chatPage{
     width: 100%;
-    height: 700rpx;
-    display: block;
+    height: auto;
+    min-height: 100vh;
+    position: relative;
 }
-.sendUserFront{
-    width: 220rpx;
-    height: 220rpx;
+.chatlist{
+    width: 100%;
+    height: auto;
     display: block;
-    overflow: hidden;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 50%;
+    margin-bottom: 150rpx; 
+    position: absolute;
+}
+.chatItem{
+    width: 100%;
+    height: 150rpx;
+    display: block;
+    margin-bottom: 5rpx;
+    box-shadow: 0 8rpx 8rpx #cccccc;
 }
 .userFront{
+    width: 100rpx;
+    height: 100rpx;
+    display: block;
+    margin-left: 25rpx;
+    margin-top: 25rpx;
+    float: left;
+}
+.userFront>image{
     width: 100%;
     height: 100%;
+    overflow: hidden;
     background-repeat: no-repeat;
 }
-.buttonGroups{
-    width: 100%;
-    height: 70rpx;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 200rpx;
+.chatContent{
+    height: 100rpx;
+    padding-top: 25rpx; 
+    margin-left: 150rpx;
+    display: block;
 }
-.userButton{
-    width: 160rpx;
+.contentTittle{
+    width: 100%;
+    height: 50rpx;
+    display: block;
+    color: #cccccc;
+}
+.contentText{
+    width: 90%;
     height: 70rpx;
-    border-radius: 10rpx;
-    font-size: 32rpx;
+    display: block;
+     overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap; 
+    padding-top: 10rpx; 
+    color: #2E3238;
+}
+.contentText,.contentTittle{
+    font-size: 28rpx;
+}
+.clearFloat{
+    clear: both;
+    display: block;
+}
+.searchButton{
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    margin-left: -50rpx;
+    margin-top: 88vh; 
+}
+.searchIcon{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-repeat: no-repeat;
 }

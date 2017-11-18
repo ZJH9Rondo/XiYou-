@@ -33,6 +33,6 @@ router.get('/message', controllers.message.get)
 router.post('/message', controllers.message.post)
 
 // 随机分发在线用户接口
-router.get('/serch',validationMiddleware,controllers.serch)
+router.get('/search',validationMiddleware,controllers.search)
 
 module.exports = router

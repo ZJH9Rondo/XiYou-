@@ -2,15 +2,29 @@
     <view wx:if="{{connectStatus}}">
         <text>{{connectText}}</text>
     </view>
-    <view wx:elif="{{chatStatus}}" class='serchSocketPage'>
-        <div class="serchPage">
-            <div class="sendUserFront">
-                <image src="{{sendUserFront}}" class='userFront'></image>
+    <view class='chatPage' wx:if="{{chatStatus}}">
+        <div class="chatlist">
+            <block wx:for ="{{chatData}}" wx:key = "index" wx:for-item = "item">
+                <div class="chatItem" bindtap="startChat" id="{{item.tunnelId}}">
+                    <div class="userFront">
+                        <image src='../assets/images/icons/search.png'></image>
+                    </div>
+                    <div class='chatContent'>
+                        <div class="contentTittle">
+                            陌生人{{index}}
+                        </div>
+                        <div class="contentText">
+                            {{item.message[item.message.length -1].content}}
+                        </div>
+                    </div>
+                </div>
+            </block>
+            <div class="clearFloat">
             </div>
-            <div class='buttonGroups'>
-                <button class='userButton' type='primary' bindtap='serchUser'>咻一咻</button>
-                <button class='userButton' type='warn' bindtap='closeConnect'>取消</button>
-            </div>
+        </div> 
+        <div class="searchButton">
+            <image src='../assets/images/icons/search.png' class='searchIcon'></image>
         </div>
     </view>
+    <div wx:if="{{searchStatus}}" class='searchBackground'></div>
 </view>

@@ -61,6 +61,7 @@ function onConnect (tunnelId) {
     //     console.log(`Unknown tunnelId(${tunnelId}) was connectd, close it`)
     //     $close(tunnelId)
     // }
+    ctx.state.data = tunnelId
 }
 
 /**
@@ -144,8 +145,8 @@ module.exports = {
                 onMessage(packet.tunnelId, packet.content.messageType, packet.content.messageContent)
                 break
             case 'close':
-                onClose(packet.tunnelId)
                 await mysql('connectUser').where({ tunnel_id: packet.tunnelId }).delete()
+                onClose(packet.tunnelId)
                 break
         }
     }

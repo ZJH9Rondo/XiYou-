@@ -29,6 +29,8 @@ App({
     globalData: {
         userInfo: null,
         config: null,
-        qcloud: null
+        qcloud: null,
+        chatId: null,
+        tunnel: null
     }
 })
