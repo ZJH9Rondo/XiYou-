@@ -10,7 +10,7 @@
   <view class='chooseMenu'>
     <div class="menuItem">
         <div class="item">
-            <navigator url='../used/used'  hover-class='none' style='height: 100%;'>
+            <navigator url='../login/login'  hover-class='none' style='height: 100%;'>
                 <image class='itemIcon' src='../assets/images/icons/used.png'></image>
                 <p class="itemTitle">二手交易</p>
             </navigator>

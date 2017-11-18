@@ -4,7 +4,8 @@
         "pages/lost/lost",
         "pages/express/express",
         "pages/used/used",
-        "pages/search/search"
+        "pages/search/search",
+        "pages/login/login"
     ],
     "window": {
         "backgroundTextStyle": "dark",
