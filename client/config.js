@@ -24,7 +24,7 @@ var config = {
         uploadUrl: `https://${host}/weapp/upload`,
 
         // 用户搜索接口
-        serchUrl: `https://${host}/weapp/search`
+        searchUrl: `https://${host}/weapp/search`
     }
 };
 

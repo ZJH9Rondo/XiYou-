@@ -6,7 +6,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    selfChatMessage: [],
+    messageContent:'',
+    chatMessage: [],
+    tempChatMessage: []
   },
 
   /**
@@ -14,57 +16,16 @@ Page({
    */
   onLoad: function (options) {
         const selfChatTunnelId = app.globalData.chatId
-        const chatData = [
-            {
-                tunnelId: '1231231231231231',
-                message: [
-                , {
-                        fromType: 'send',  // 区别 发送方 和 接收方
-                        content: '你好啊',
-                    }, {
-                        fromType: 'receive',  // 区别 发送方 和 接收方
-                        content: '你好',
-                    }, {
-                        fromType: 'receive',  // 区别 发送方 和 接收方
-                        content: '有什么事吗？你谁啊',
-                    }, {
-                        fromType: 'send',  // 区别 发送方 和 接收方
-                        content: '我是一个陌生人啊',
-                    }, {
-                        fromType: 'send',  // 区别 发送方 和 接收方
-                        content: '你好啊',
-                    }
-                ]
-            }, {
-                tunnelId: '45465464564564',
-                message: [
-                , {
-                        fromType: 'receive',  // 区别 发送方 和 接收方
-                        content: '你好啊',
-                    }, {
-                        fromType: 'send',  // 区别 发送方 和 接收方
-                        content: '你好',
-                    }, {
-                        fromType: 'send',  // 区别 发送方 和 接收方
-                        content: '有什么事吗？你谁啊',
-                    }, {
-                        fromType: 'receive',  // 区别 发送方 和 接收方
-                        content: '我是一个陌生人啊',
-                    }, {
-                        fromType: 'receive',  // 区别 发送方 和 接收方
-                        content: '好你mmp',
-                    }
-                ]
-            }
-        ]
+        const chatData = app.globalData.chatData
 
         for(let i = 0;i < chatData.length; i++){
             if(chatData[i].tunnelId == selfChatTunnelId){
                 this.setData({
-                    selfChatMessage: chatData[i].message
+                    tempChatMessage: chatData[i].message
                 })
             }
         }
+        app.globalData.chatItemMessage = this.data.tempChatMessage
   },
 
   /**
@@ -78,7 +39,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+      /**
+       * 监听服务端消息推送
+      */
+      app.globalData.tunnel.on('speak', speak => {
+          console.log(speak)
+          this.data.tempChatMessage.push({
+              type: 'receive',
+              content: speak
+          })
+      })
   },
 
   /**
@@ -92,14 +62,20 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    
+      for (let i = 0; i < app.globalData.chatData.length; i++) {
+          if (app.globalData.chatData[i].tunnelId == app.globalData.chatId) {
+              chatData[i].message = app.globalData.chatItemMessage
+          }
+      }
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    
+        this.setData({
+            chatMessage: this.data.tempChatMessage
+        })
   },
 
   /**
@@ -113,6 +89,28 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    
+       
+  },
+
+ /**
+  * 获取用户输入内容
+ */
+getMessageText: function (event){
+    this.setData({
+        messageContent: event.detail.value
+    })
+},
+  /**
+   * 用户发送消息给指定用户
+  */
+  sendMessage: function (event){
+     /**
+      * 监听信道客户端消息发送
+     */
+      app.globalData.tunnel.emit('speak', { word: this.data.messageContent, who: wx.getStorageSync('chatUserTunnelId')})
+      this.data.tempChatMessage.push({
+          type: 'send',
+          content: this.data.messageContent
+      })
   }
 })

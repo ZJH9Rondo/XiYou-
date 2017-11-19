@@ -11,49 +11,7 @@ Page({
     connectStatus: false,
     searchStatus: false,
     chatStatus: true,
-    chatData: [
-        {
-            tunnelId: '1231231231231231',
-            message: [
-                ,{
-                    fromType:  'send',  // 区别 发送方 和 接收方
-                    content: '你好啊',
-                }, {
-                    fromType: 'receive',  // 区别 发送方 和 接收方
-                    content: '你好',
-                }, {
-                    fromType: 'receive',  // 区别 发送方 和 接收方
-                    content: '有什么事吗？你谁啊',
-                }, {
-                    fromType: 'send',  // 区别 发送方 和 接收方
-                    content: '我是一个陌生人啊',
-                }, {
-                    fromType: 'send',  // 区别 发送方 和 接收方
-                    content: '你好啊',
-                }
-            ]
-        }, {
-            tunnelId: '45465464564564',
-            message: [
-                , {
-                    fromType: 'receive',  // 区别 发送方 和 接收方
-                    content: '你好啊',
-                }, {
-                    fromType: 'send',  // 区别 发送方 和 接收方
-                    content: '你好',
-                }, {
-                    fromType: 'send',  // 区别 发送方 和 接收方
-                    content: '有什么事吗？你谁啊',
-                }, {
-                    fromType: 'receive',  // 区别 发送方 和 接收方
-                    content: '我是一个陌生人啊',
-                }, {
-                    fromType: 'receive',  // 区别 发送方 和 接收方
-                    content: '好你mmp',
-                }
-            ]
-        }
-    ]
+    chatData: []
   },
 
   /**
@@ -64,12 +22,21 @@ Page({
      * 连接到Socket
     */
       tunnel = new app.globalData.qcloud.Tunnel(app.globalData.config.service.tunnelUrl)
-      
+      app.globalData.chatData = wx.getStorageSync('chatData')
+      this.setData({
+          chatData: app.globalData.chatData
+      })
+
       console.log(tunnel)
       /**
        * 建立socket连接
       */
-    //   tunnel.open();
+      tunnel.open();
+
+      /**
+       *  绑定tunnel为全局变量
+       */  
+      app.globalData.tunnel = tunnel
 
       tunnel.on('connect', () => {
           // 监听连接状态
@@ -96,6 +63,10 @@ Page({
               connectText: '连接成功',
               connectStatus: false
           })
+      }),
+
+      tunnel.on('speak', speak => {
+          console.log(speak)
       })
   },
 
@@ -158,6 +129,7 @@ Page({
 startChat: function (event){
     // event 对象包含本次事件触发的完整信息
     app.globalData.chatId = (event.target.id) ? event.target.id : event.currentTarget.id
+    console.log(app.globalData.chatId )
     wx.navigateTo({
         url: '../chat/chat',
     })
@@ -166,9 +138,10 @@ startChat: function (event){
 /**
  * 搜索在线用户
 */
-serchUser: function (){
+searchUser: function (){
+    const that  = this
     app.globalData.qcloud.request({
-        url: app.globalData.config.service.serchUrl,
+        url: app.globalData.config.service.searchUrl,
         data: {
             tunnelId: wx.getStorageSync('self_tunnelId')
         },
@@ -176,11 +149,27 @@ serchUser: function (){
             /**
              * 页面更改，显示搜索结果
             */
-            this.setData({
-                searchStatus: true
-            })
+            // this.setData({
+            //     searchStatus: true
+            // })
+            let tmpChatData = app.globalData.chatData
+            if(tmpChatData){
+                tmpChatData.push({
+                    tunnelId: wx.getStorageSync('self_tunnelId'),
+                    message: {}
+                })
+            }else{
+                tmpChatData = []
+                tmpChatData.push({
+                    tunnelId: wx.getStorageSync('self_tunnelId'),
+                    message: {}
+                })
+            }
+            app.globalData.chatData = tmpChatData
             wx.setStorageSync('chatUserTunnelId', res.data.data.chatReceiveUser) // 存储数据到本地缓存
-            console.log(res.data.data.chatReceiveUser)
+            wx.navigateTo({
+                url: '../chat/chat',
+            })
         }
     })
 },

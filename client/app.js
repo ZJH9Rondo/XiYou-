@@ -31,6 +31,8 @@ App({
         config: null,
         qcloud: null,
         chatId: null,
-        tunnel: null
+        tunnel: null,
+        chatData: [],
+        chatItemMessage: null
     }
 })

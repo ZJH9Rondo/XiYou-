@@ -9,7 +9,7 @@
 */
 .messageContainer{
     width: 100%;
-    height: 94vh;
+    height: 92vh;
     display: block;
     overflow-y: scroll;
 }
@@ -23,12 +23,14 @@
 }
 .receive{
     width: 60%;
-    height: 100rpx;
+    height: auto;
+    min-height: 100rpx;
     display: block;
 }
 .send{
     width: 60%;
-    height: 300rpx;
+    height: auto;
+    min-height: 100rpx;
     display: block;
     margin-left: 40%;
 }
@@ -61,27 +63,27 @@
 */
 .inputContainer{
     width: 100%;
-    height: 6vh;
+    height: 8vh;
     display: block;
 }
 .messageInput{
     width: 80%;
-    height: 6vh;
+    height: 8vh;
     float: left;
     display: block;
 }
 .messageInput>input{
     width: 95%;
-    height: 5vh;
+    height: 7vh;
     top: 10rpx;
     margin-left: 20rpx;
-    font-size: 30rpx;
+    font-size: 32rpx;
     border: 0;
     border-bottom: 2rpx solid #cccccc;
 }
 .sendButton{
-    width: 12%;
-    height: 4vh;
+    width: 14%;
+    height: 5vh;
     display: block;
     margin-left: 82%;
     top: 10rpx; 
