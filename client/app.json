@@ -5,6 +5,7 @@
         "pages/express/express",
         "pages/used/used",
         "pages/search/search",
+        "pages/login/login",
         "pages/chat/chat"
     ],
     "window": {

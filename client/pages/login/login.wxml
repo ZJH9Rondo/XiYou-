@@ -1,0 +1,17 @@
+<!-- 登录验证页面 -->
+
+<view class='login'>
+
+  <view class='content'>
+    <input class='username' bindinput='usernameInput'></input>
+
+    <input class='password' bindinput='passwordInput'></input>
+
+    <input class='vercode' bindinput='vercodeInput'></input>
+
+    <image class='verimg' src=''></image>
+
+    <button class='loginbtn' bindtap='login'>登录验证</button>
+  </view>
+
+</view>
