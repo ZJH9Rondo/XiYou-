@@ -22,7 +22,7 @@
             <div class="clearFloat">
             </div>
         </div> 
-        <div class="searchButton">
+        <div class="searchButton" bindtap="searchUser">
             <image src='../assets/images/icons/search.png' class='searchIcon'></image>
         </div>
     </view>

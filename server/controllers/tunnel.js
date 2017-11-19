@@ -1,6 +1,7 @@
 const { tunnel } = require('../qcloud')
 const { mysql } = require('../qcloud')
 const debug = require('debug')('koa-weapp-demo')
+let userIdList = [];
 
 /**
  * 调用 tunnel.broadcast() 进行广播
@@ -8,30 +9,21 @@ const debug = require('debug')('koa-weapp-demo')
  * @param  {String} content 消息内容
  */
 const $broadcast = (type, content) => {
-    // tunnel.broadcast(connectedTunnelIds, type, content)
-    //     .then(result => {
-    //         const invalidTunnelIds = result.data && result.data.invalidTunnelIds || []
-
-    //         if (invalidTunnelIds.length) {
-    //             console.log('检测到无效的信道 IDs =>', invalidTunnelIds)
-
-    //             // 从 userMap 和 connectedTunnelIds 中将无效的信道记录移除
-    //             invalidTunnelIds.forEach(tunnelId => {
-
-    //                 const index = connectedTunnelIds.indexOf(tunnelId)
-    //                 if (~index) {
-    //                     connectedTunnelIds.splice(index, 1)
-    //                 }
-    //             })
-    //         }
-    //     })
+    tunnel.broadcast(content.who, type, content.word)
+        .then(result => {
+            console.log(result)
+        })
 }
 
 /**
  * 调用TunnelService.emit(tunnelId: string, messageType: string, messageContent: any) 发送消息到指定信道
  * @param tunnelId messageType messageContent 均为必填参数
  */
-
+// const $emit = (tunnelId,type,content) => {
+//     tunnel.emit(tunnelId,type,content).catch(err => {
+//         console.log(err)
+//     })
+// }
 
 /**
  * 调用 TunnelService.closeTunnel() 关闭信道
@@ -75,14 +67,15 @@ function onMessage (tunnelId, type, content) {
 
     switch (type) {
         case 'speak':
-            // if (tunnelId in userMap) {
-            //     $broadcast('speak', {
-            //         'who': userMap[tunnelId],
-            //         'word': content.word
-            //     })
-            // } else {
-            //     $close(tunnelId)
+            console.log(content)
+            // if (content.who in userIdList) {
+                
             // }
+            // $emit(content.who, 'speak', content.word)
+            let tempWhoArray = []
+            tempWhoArray.push(content.who)
+            content.who = tempWhoArray
+            $broadcast('speak',content)
             break
 
         default:
@@ -120,14 +113,16 @@ module.exports = {
         const data = await tunnel.getTunnelUrl(ctx.req)
         const tunnelId = data.tunnel.tunnelId
         const userInfo = JSON.stringify(data.userinfo)
-
+        const tunnelInfo = data.tunnel
         /**
          * 维护当前链接的信道列表，tunnelId 存入数据库
         */
         await mysql('connectUser').insert({ tunnel_id: tunnelId, user_info: userInfo})
 
-        const tunnelInfo = data.tunnel
-
+        /**
+         * 当前信道用户列表
+        */
+        userIdList = await mysql('connectUser').select('tunnel_id') 
         ctx.state.data = tunnelInfo
     },
 

@@ -1,60 +1,20 @@
 <view class='container'>
     <view class='chatPage'>
         <div class='messageContainer'>
-            <div class="messageItem">
-                <div class="receive">
-                    <div class="userFront">
-                    </div>
-                    <div class="content">
-                        我不知道你是不是爱我
-                    </div>
-                </div>
-            </div>
-            <div class="messageItem">
-                <div class="send">
+            <block wx:for="{{chatMessage}}" wx:key = "index" wx:for-item="item">
+                <div class="messageItem">
+                    <div wx:if="{{item.type}} == 'receive'" class="receive">
                         <div class="userFront">
                         </div>
-                        <div class="content">
-                            我不知道你是不是爱我
-                        </div>
-                </div>
-            </div>
-            <div class="messageItem">
-                <div class="send">
+                        <div class="content">{{item.content}}</div>
+                    </div>
+                    <div wx:if="{{item.type}} == 'send'" class="send">
                         <div class="userFront">
                         </div>
-                        <div class="content">
-                            我不知道你是不是爱我
-                        </div>
-                </div>
-            </div>
-            <div class="messageItem">
-                <div class="send">
-                        <div class="userFront">
-                        </div>
-                        <div class="content">
-                            我不知道你是不是爱我
-                        </div>
-                </div>
-            </div>
-            <div class="messageItem">
-                <div class="receive">
-                    <div class="userFront">
-                    </div>
-                    <div class="content">
-                        我不知道你是不是爱我
+                        <div class="content">{{item.content}}</div>
                     </div>
                 </div>
-            </div>
-            <div class="messageItem">
-                <div class="receive">
-                    <div class="userFront">
-                    </div>
-                    <div class="content">
-                        我不知道你是不是爱我
-                    </div>
-                </div>
-            </div>
+            </block>
         </div>
         <div class="inputContainer">
             <div class='messageInput'>
