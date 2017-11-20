@@ -20,7 +20,7 @@ Page({
   onLoad: function (options) {
       /**
      * 连接到Socket
-    */
+     */
       tunnel = new app.globalData.qcloud.Tunnel(app.globalData.config.service.tunnelUrl)
       app.globalData.chatData = wx.getStorageSync('chatData')
       this.setData({
@@ -67,6 +67,9 @@ Page({
 
       tunnel.on('speak', speak => {
           console.log(speak)
+          /**
+           * 动态查询当前信道 id 列表，判断是否需要创建保存信道信息及通信列表
+          */
       })
   },
 
@@ -106,7 +109,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+    this.setData({
+        chatData: app.globalData.chatData
+    })
   },
 
   /**

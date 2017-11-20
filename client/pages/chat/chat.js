@@ -7,8 +7,7 @@ Page({
    */
   data: {
     messageContent:'',
-    chatMessage: [],
-    tempChatMessage: []
+    chatMessage: []
   },
 
   /**
@@ -21,11 +20,11 @@ Page({
         for(let i = 0;i < chatData.length; i++){
             if(chatData[i].tunnelId == selfChatTunnelId){
                 this.setData({
-                    tempChatMessage: chatData[i].message
+                    chatMessage: chatData[i].message
                 })
             }
         }
-        app.globalData.chatItemMessage = this.data.tempChatMessage
+        app.globalData.chatItemMessage = this.data.chatMessage
   },
 
   /**
@@ -44,7 +43,7 @@ Page({
       */
       app.globalData.tunnel.on('speak', speak => {
           console.log(speak)
-          this.data.tempChatMessage.push({
+          this.data.chatMessage.push({
               type: 'receive',
               content: speak
           })
@@ -74,7 +73,7 @@ Page({
    */
   onPullDownRefresh: function () {
         this.setData({
-            chatMessage: this.data.tempChatMessage
+            chatMessage: this.data.chatMessage
         })
   },
 
@@ -108,9 +107,10 @@ getMessageText: function (event){
       * 监听信道客户端消息发送
      */
       app.globalData.tunnel.emit('speak', { word: this.data.messageContent, who: wx.getStorageSync('chatUserTunnelId')})
-      this.data.tempChatMessage.push({
+      this.data.chatMessage.push({
           type: 'send',
           content: this.data.messageContent
       })
+      console.log(this.data.chatMessage)
   }
 })
