@@ -175,6 +175,9 @@ searchUser: function (){
             wx.navigateTo({
                 url: '../chat/chat',
             })
+        },
+        fail: err => {
+            console.log(err)
         }
     })
 },

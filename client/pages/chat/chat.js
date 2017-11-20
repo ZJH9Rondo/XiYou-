@@ -1,4 +1,5 @@
 const app = getApp()
+let tempMessage = []
 
 Page({
 
@@ -7,6 +8,7 @@ Page({
    */
   data: {
     messageContent:'',
+    lastMessageId: 0,
     chatMessage: []
   },
 
@@ -42,11 +44,16 @@ Page({
        * 监听服务端消息推送
       */
       app.globalData.tunnel.on('speak', speak => {
-          console.log(speak)
-          this.data.chatMessage.push({
-              type: 'receive',
-              content: speak
-          })
+         console.log(speak)
+        this.data.chatMessage.push({
+             type: 'receive',
+             content: speak
+         }),
+            tempMessage = this.data.chatMessage
+         this.setData({
+             chatMessage: tempMessage, 
+             lastMessageId: tempMessage.length
+         })
       })
   },
 
@@ -110,7 +117,12 @@ getMessageText: function (event){
       this.data.chatMessage.push({
           type: 'send',
           content: this.data.messageContent
-      })
+      }),
+    tempMessage = this.data.chatMessage
+     this.setData({
+         chatMessage: tempMessage,
+         lastMessageId: tempMessage.length
+     })
       console.log(this.data.chatMessage)
   }
 })

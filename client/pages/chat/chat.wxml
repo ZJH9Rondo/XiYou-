@@ -1,21 +1,24 @@
 <view class='container'>
     <view class='chatPage'>
-        <div class='messageContainer'>
+        <scroll-view class='messageContainer' scroll-y scroll-into-view="{{lastMessageId}}" scroll-top='999999'>
             <block wx:for="{{chatMessage}}" wx:key = "index" wx:for-item="item">
                 <div class="messageItem">
                     <div wx:if="{{item.type  ===  'receive'}}" class="receive">
                         <div class="userFront">
                         </div>
-                        <div class="content">{{item.content}}</div>
+                        <div class="content">
+                            <pre>{{item.content}}</pre>
+                        </div>
                     </div>
                     <div wx:if="{{item.type  ===  'send'}}" class="send">
-                        <div class="userFront">
-                        </div>
-                        <div class="content">{{item.content}}</div>
+                            <div class="userFront"></div>
+                            <div class="content">
+                                <pre>{{item.content}}</pre>
+                            </div>
                     </div>
                 </div>
             </block>
-        </div>
+        </scroll-view>
         <div class="inputContainer">
             <div class='messageInput'>
                 <input bindinput='getMessageText' auto-focus></input>

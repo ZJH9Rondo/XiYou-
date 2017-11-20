@@ -5,9 +5,9 @@ module.exports = async ctx => {
     const chatSendUser = ctx.query.tunnelId
     let index = Math.ceil(Math.random() * tunnel_idArray.length)
 
-    while (tunnel_idArray[index].tunnel_id == chatSendUser ){
-        index = Math.ceil(Math.random() * tunnel_idArray.length)
-    }
+    // while (tunnel_idArray[index].tunnel_id == chatSendUser ){
+    //     index = Math.ceil(Math.random() * tunnel_idArray.length)
+    // }
     ctx.state.data  = {
         chatReceiveUser: tunnel_idArray[0].tunnel_id,
     } 

@@ -11,33 +11,32 @@
     width: 100%;
     height: 92vh;
     display: block;
-    overflow-y: scroll;
 }
 .messageItem{
+    clear: both;
     width: 95%;
     height: auto;
+    min-height: 150rpx;
     display: block;
     margin-top: 20rpx;
+    margin-bottom: 20rpx;
     margin-left: auto;
     margin-right: auto;
+    overflow: auto;
 }
-.receive{
-    width: 60%;
+.receive,.send{
+    display: block;
+    width: 65%;
     height: auto;
     min-height: 100rpx;
-    display: block;
 }
 .send{
-    width: 60%;
-    height: auto;
-    min-height: 100rpx;
-    display: block;
-    margin-left: 40%;
+    margin-left: 35%;
 }
 .userFront{
+    display: block;
     width: 100rpx;
     height: 100rpx;
-    display: block;
     border-radius: 50%;
     background: gold;
 }
@@ -48,15 +47,24 @@
     float: right;
 }
 .content{
-    display: block;
-    font-size: 28rpx;
-    padding-top: 20rpx;
+    width: auto;
+    max-width: 70%;
+    min-height: 100%;
+    margin-left: 10rpx;
+    padding-top: 30rpx;
+    text-align: left;
+    overflow: hidden;
+}
+.content>pre{
+    word-break: break-all;
 }
 .receive>.content{
-    margin-left: 110rpx;
+    float: left;
+    padding-left: 10rpx;
 }
 .send>.content{
-    margin-right: 110rpx;
+    padding-right: 10rpx;
+    float: right;
 }
 /**
 *   输入框样式
