@@ -47,24 +47,49 @@
     float: right;
 }
 .content{
-    width: auto;
-    max-width: 70%;
+    max-width: 60%;
     min-height: 100%;
-    margin-left: 10rpx;
-    padding-top: 30rpx;
-    text-align: left;
-    overflow: hidden;
+    margin-top: 30rpx;
+    position: relative;
+    display: block;
+    padding: 15rpx;
+    border-radius: 15rpx;
+}
+.content>div{
+    width: 20rpx;
+    height: 20rpx;
+    position: absolute;
+    transform: rotateZ(45deg);
+    -webkit-transform: rotateZ(45deg);
+    -moz-transform: rotateZ(45deg);  
+    -o-transform: rotateZ(45deg);
+    background: #FFFEFF;
 }
 .content>pre{
+    text-align: left;
+    font-family: sans-serif;
+    color: #2E2020;
+    font-size: 29rpx;
     word-break: break-all;
 }
 .receive>.content{
     float: left;
-    padding-left: 10rpx;
+    background: #EAEAEB;
+    margin-left: 30rpx;
+}
+.receiveTip{
+    background: #EAEAEB !important;
+    margin-left: -22rpx;
 }
 .send>.content{
-    padding-right: 10rpx;
+    margin-right: 30rpx;
+    background: #68F84E;
     float: right;
+}
+.sendTip{
+    left: 100%;
+    margin-left: -10rpx;
+    background: #68F84E !important;
 }
 /**
 *   输入框样式

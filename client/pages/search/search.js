@@ -11,7 +11,8 @@ Page({
     connectStatus: false,
     searchStatus: false,
     chatStatus: true,
-    chatData: []
+    chatData: [],
+    lastChatId: 0
   },
 
   /**
@@ -22,10 +23,6 @@ Page({
      * 连接到Socket
      */
       tunnel = new app.globalData.qcloud.Tunnel(app.globalData.config.service.tunnelUrl)
-      app.globalData.chatData = wx.getStorageSync('chatData')
-      this.setData({
-          chatData: app.globalData.chatData
-      })
 
       console.log(tunnel)
       /**
@@ -63,14 +60,41 @@ Page({
               connectText: '连接成功',
               connectStatus: false
           })
-      }),
-
-      tunnel.on('speak', speak => {
-          console.log(speak)
-          /**
-           * 动态查询当前信道 id 列表，判断是否需要创建保存信道信息及通信列表
-          */
       })
+
+       /**
+       * 监听服务端消息推送
+      */
+      app.globalData.tunnel.on('speak', speak => {
+        let flag = true     
+        for(let i = 0;i < app.globalData.chatData.length;i++){
+            if(speak.from == app.globalData.chatData[i].tunnelId){
+                app.globalData.chatData[i].message.push({
+                    type: 'receive',
+                    content: speak.word
+                })
+                this.setData({
+                    chatMessage: app.globalData.chatItemMessage,
+                    lastChatId: app.globalData.chatData.length
+                })
+                flag = false
+            }
+        }
+        if(flag){
+            app.globalData.chatData.push({
+                tunnelId: speak.from,
+                message: [
+                    {
+                        type: 'receive',
+                        content: speak.word
+                    }
+                ]
+            })
+            this.setData({
+                lastChatId: app.globalData.chatData.length
+            })
+        }
+     })
   },
 
   /**
@@ -83,7 +107,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    for(let i = 0;i < app.globalData.chatData.length; i++){
+        if(app.globalData.chatData[i].tunnelId == app.globalData.chatId){
+            console.log(app.globalData.chatData[i])
+            app.globalData.chatData[i].message = app.globalData.chatItemMessage
+        }
+    }
+    console.log(app.globalData.chatItemMessage)
+    this.setData({
+        chatData: app.globalData.chatData,
+        lastChatId: this.data.chatData.length
+    })
+    console.log(this.data.chatData)
   },
 
   /**
@@ -110,7 +145,8 @@ Page({
    */
   onPullDownRefresh: function () {
     this.setData({
-        chatData: app.globalData.chatData
+        chatData: app.globalData.chatData,
+        lastChatId: this.data.chatData.length
     })
   },
 
@@ -133,7 +169,7 @@ Page({
 */
 startChat: function (event){
     // event 对象包含本次事件触发的完整信息
-    app.globalData.chatId = (event.target.id) ? event.target.id : event.currentTarget.id
+    app.globalData.chatId = (event.target.dataset.id) ? event.target.dataset.id : event.currentTarget.dataset.id
     console.log(app.globalData.chatId )
     wx.navigateTo({
         url: '../chat/chat',
@@ -160,18 +196,18 @@ searchUser: function (){
             let tmpChatData = app.globalData.chatData
             if(tmpChatData){
                 tmpChatData.push({
-                    tunnelId: wx.getStorageSync('self_tunnelId'),
-                    message: {}
+                    tunnelId: res.data.data.chatReceiveUser,
+                    message: []
                 })
             }else{
                 tmpChatData = []
                 tmpChatData.push({
-                    tunnelId: wx.getStorageSync('self_tunnelId'),
-                    message: {}
+                    tunnelId: res.data.data.chatReceiveUser,
+                    message: []
                 })
             }
             app.globalData.chatData = tmpChatData
-            wx.setStorageSync('chatUserTunnelId', res.data.data.chatReceiveUser) // 存储数据到本地缓存
+            app.globalData.chatId = res.data.data.chatReceiveUser
             wx.navigateTo({
                 url: '../chat/chat',
             })

@@ -33,6 +33,6 @@ App({
         chatId: null,
         tunnel: null,
         chatData: [],
-        chatItemMessage: null
+        chatItemMessage: []
     }
 })

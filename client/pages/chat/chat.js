@@ -16,17 +16,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-        const selfChatTunnelId = app.globalData.chatId
         const chatData = app.globalData.chatData
 
         for(let i = 0;i < chatData.length; i++){
-            if(chatData[i].tunnelId == selfChatTunnelId){
+            if(chatData[i].tunnelId == app.globalData.chatId){
                 this.setData({
                     chatMessage: chatData[i].message
                 })
             }
         }
-        app.globalData.chatItemMessage = this.data.chatMessage
   },
 
   /**
@@ -44,35 +42,34 @@ Page({
        * 监听服务端消息推送
       */
       app.globalData.tunnel.on('speak', speak => {
-         console.log(speak)
-        this.data.chatMessage.push({
-             type: 'receive',
-             content: speak
-         }),
-            tempMessage = this.data.chatMessage
-         this.setData({
-             chatMessage: tempMessage, 
-             lastMessageId: tempMessage.length
-         })
-      })
+        console.log(speak)
+       this.data.chatMessage.push({
+           type: 'receive',
+           content: speak.word
+       }),
+
+       // 调用临时数组空间，保证可以使用 push 操作
+       tempMessage = this.data.chatMessage
+       this.setData({
+           chatMessage: tempMessage, 
+           lastMessageId: tempMessage.length
+       })
+       app.globalData.chatItemMessage = this.data.chatMessage
+     })
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-      for (let i = 0; i < app.globalData.chatData.length; i++) {
-          if (app.globalData.chatData[i].tunnelId == app.globalData.chatId) {
-              chatData[i].message = app.globalData.chatItemMessage
-          }
-      }
+
   },
 
   /**
@@ -80,7 +77,8 @@ Page({
    */
   onPullDownRefresh: function () {
         this.setData({
-            chatMessage: this.data.chatMessage
+            chatMessage: this.data.chatMessage,
+            selfChatTunnelId: this.data.chatMessage.length
         })
   },
 
@@ -113,16 +111,18 @@ getMessageText: function (event){
      /**
       * 监听信道客户端消息发送
      */
-      app.globalData.tunnel.emit('speak', { word: this.data.messageContent, who: wx.getStorageSync('chatUserTunnelId')})
+      console.log(app.globalData.chatId)
+      app.globalData.tunnel.emit('speak', { word: {text: this.data.messageContent,to: app.globalData.chatId}, who: wx.getStorageSync('self_tunnelId')})
       this.data.chatMessage.push({
           type: 'send',
           content: this.data.messageContent
       }),
-    tempMessage = this.data.chatMessage
+     tempMessage = this.data.chatMessage
      this.setData({
          chatMessage: tempMessage,
          lastMessageId: tempMessage.length
      })
+     app.globalData.chatItemMessage = this.data.chatMessage
       console.log(this.data.chatMessage)
-  }
+    }
 })
