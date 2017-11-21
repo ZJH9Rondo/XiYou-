@@ -7,12 +7,14 @@
                         <div class="userFront">
                         </div>
                         <div class="content">
+                            <div class="receiveTip"></div>
                             <pre>{{item.content}}</pre>
                         </div>
                     </div>
                     <div wx:if="{{item.type  ===  'send'}}" class="send">
                             <div class="userFront"></div>
                             <div class="content">
+                                <div class="sendTip"></div>
                                 <pre>{{item.content}}</pre>
                             </div>
                     </div>

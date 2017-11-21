@@ -9,7 +9,15 @@ let userIdList = [];
  * @param  {String} content 消息内容
  */
 const $broadcast = (type, content) => {
-    tunnel.broadcast(content.who, type, content.word)
+    content.word = {
+        word: content.word.text,
+        to: content.word.to,
+        from: content.who
+    }
+    let tempWhoArray = []
+    tempWhoArray.push(content.word.to)
+    content.word.to = tempWhoArray
+    tunnel.broadcast(content.word.to, type, content.word)
         .then(result => {
             console.log(result)
         })
@@ -72,9 +80,6 @@ function onMessage (tunnelId, type, content) {
                 
             // }
             // $emit(content.who, 'speak', content.word)
-            let tempWhoArray = []
-            tempWhoArray.push(content.who)
-            content.who = tempWhoArray
             $broadcast('speak',content)
             break
 

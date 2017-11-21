@@ -3,9 +3,9 @@
         <text>{{connectText}}</text>
     </view>
     <view class='chatPage' wx:if="{{chatStatus}}">
-        <div class="chatlist">
+        <scroll-view class="chatlist" scroll-y scroll-into-view="{{lastChatId}}" scroll-top="99999">
             <block wx:for ="{{chatData}}" wx:key = "index" wx:for-item = "item">
-                <div class="chatItem" bindtap="startChat" id="{{item.tunnelId}}">
+                <div class="chatItem" bindtap="startChat" data-id="{{item.tunnelId}}">
                     <div class="userFront">
                         <image src='../assets/images/icons/search.png'></image>
                     </div>
@@ -14,14 +14,14 @@
                             陌生人{{index}}
                         </div>
                         <div class="contentText">
-                            {{item.message[item.message.length -1].content}}
+                            {{item.message[item.message.length-1].content}}
                         </div>
                     </div>
                 </div>
             </block>
             <div class="clearFloat">
             </div>
-        </div> 
+        </scroll-view> 
         <div class="searchButton" bindtap="searchUser">
             <image src='../assets/images/icons/search.png' class='searchIcon'></image>
         </div>
