@@ -9,7 +9,7 @@
 
     <input class='vercode'  bindinput='vercodeInput' placeholder='验证码'></input>
 
-    <image class='verimg' src='{{verimg}}'></image>
+    <image class='verimg' bindtap="getVerImg" src='{{verimg}}'></image>
 
     <button class='loginbtn' bindtap='login'>登录验证</button>
   </view>

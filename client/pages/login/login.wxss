@@ -35,6 +35,7 @@
   width: 80px;
   height: 40px;
   background-color: #666;
+  z-index: 999;
 }
 
 .content>button{
