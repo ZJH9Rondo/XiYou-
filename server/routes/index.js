@@ -35,4 +35,7 @@ router.post('/message', controllers.message.post)
 // 随机分发在线用户接口
 router.get('/search',validationMiddleware,controllers.search)
 
+// 教务系统认证验证码接口
+router.get('/vercode', controllers.vercode);
+
 module.exports = router
