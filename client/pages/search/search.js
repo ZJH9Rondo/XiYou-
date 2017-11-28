@@ -66,23 +66,24 @@ Page({
        * 监听服务端消息推送
       */
       app.globalData.tunnel.on('speak', speak => {
-        let flag = true     
+        let flag = true
+        let tempLastChatId = app.globalData.chatData.length    
+        console.log('chat on speak') 
         for(let i = 0;i < app.globalData.chatData.length;i++){
             if(speak.from == app.globalData.chatData[i].tunnelId){
-                app.globalData.chatData[i].message.push({
-                    type: 'receive',
-                    content: speak.word
-                })
+                app.globalData.chatData[i].unread_piv++
+                tempLastChatId++
                 this.setData({
-                    chatMessage: app.globalData.chatItemMessage,
-                    lastChatId: app.globalData.chatData.length
+                    lastChatId: tempLastChatId
                 })
                 flag = false
             }
         }
+        
         if(flag){
             app.globalData.chatData.push({
                 tunnelId: speak.from,
+                unread_piv: 0,
                 message: [
                     {
                         type: 'receive',
@@ -109,16 +110,13 @@ Page({
   onShow: function () {
     for(let i = 0;i < app.globalData.chatData.length; i++){
         if(app.globalData.chatData[i].tunnelId == app.globalData.chatId){
-            console.log(app.globalData.chatData[i])
             app.globalData.chatData[i].message = app.globalData.chatItemMessage
         }
     }
-    console.log(app.globalData.chatItemMessage)
     this.setData({
         chatData: app.globalData.chatData,
         lastChatId: this.data.chatData.length
     })
-    console.log(this.data.chatData)
   },
 
   /**

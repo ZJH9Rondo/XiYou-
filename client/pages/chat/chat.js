@@ -20,6 +20,7 @@ Page({
 
         for(let i = 0;i < chatData.length; i++){
             if(chatData[i].tunnelId == app.globalData.chatId){
+                app.globalData.chatData[i].unread_piv = 0
                 this.setData({
                     chatMessage: chatData[i].message
                 })
@@ -38,24 +39,25 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-      /**
-       * 监听服务端消息推送
-      */
-      app.globalData.tunnel.on('speak', speak => {
-        console.log(speak)
-       this.data.chatMessage.push({
-           type: 'receive',
-           content: speak.word
-       }),
+        /**
+         * 监听服务端消息推送
+         */
+        app.globalData.tunnel.on('speak', speak => {
+            console.log(speak)
+            console.log('chat on speak')
+        this.data.chatMessage.push({
+            type: 'receive',
+            content: speak.word
+        }),
 
-       // 调用临时数组空间，保证可以使用 push 操作
-       tempMessage = this.data.chatMessage
-       this.setData({
-           chatMessage: tempMessage, 
-           lastMessageId: tempMessage.length
-       })
-       app.globalData.chatItemMessage = this.data.chatMessage
-     })
+        // 调用临时数组空间，保证可以使用 push 操作
+        tempMessage = this.data.chatMessage
+        this.setData({
+            chatMessage: tempMessage, 
+            lastMessageId: tempMessage.length
+        })
+        app.globalData.chatItemMessage = this.data.chatMessage
+    })
   },
 
   /**

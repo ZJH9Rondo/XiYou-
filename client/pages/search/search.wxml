@@ -7,6 +7,7 @@
             <block wx:for ="{{chatData}}" wx:key = "index" wx:for-item = "item">
                 <div class="chatItem" bindtap="startChat" data-id="{{item.tunnelId}}">
                     <div class="userFront">
+                        <div class='unread_piv' wx:if='{{item.unread_piv>0}}'>{{item.unread_piv}}</div>
                         <image src='../assets/images/icons/search.png'></image>
                     </div>
                     <div class='chatContent'>

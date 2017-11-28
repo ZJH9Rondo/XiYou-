@@ -36,6 +36,7 @@
     width: 100rpx;
     height: 100rpx;
     display: block;
+    position: relative;
     margin-left: 25rpx;
     margin-top: 25rpx;
     float: left;
@@ -45,6 +46,17 @@
     height: 100%;
     overflow: hidden;
     background-repeat: no-repeat;
+}
+.unread_piv{
+    width: 30rpx;
+    height: 30rpx;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+    font-size: 25rpx;
+    position: absolute;
+    margin-left: 85rpx;
+    margin-top: -15rpx;
 }
 .chatContent{
     height: 100rpx;
