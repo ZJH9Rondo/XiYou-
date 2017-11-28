@@ -23,7 +23,7 @@
         "mysql": "^2.14.1",
         "pify": "^2.3.0",
         "wafer-node-sdk": "^1.0.7",
-        "superagent": "^3.8.1"
+        "request": "^2.83.0"
     },
     "devDependencies": {
         "babel-cli": "^6.26.0",
