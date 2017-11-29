@@ -36,6 +36,6 @@ router.post('/message', controllers.message.post)
 router.get('/search',validationMiddleware,controllers.search)
 
 // 教务系统认证验证码接口
-router.get('/vercode', controllers.vercode);
+router.get('/vercode',controllers.vercode);
 
 module.exports = router

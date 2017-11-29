@@ -82,8 +82,8 @@ Page({
     wx.request({
       url: 'https://fz1b9jc6.qcloud.la/weapp/vercode',
       method: 'GET',
-      success (res) {
-        console.log(res);
+      success: res => {
+          console.log(res);
         // that.setData({
         //   verimg: res.data.result.verCode,
         //   session: res.data.result.session
