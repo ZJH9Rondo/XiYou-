@@ -38,4 +38,7 @@ router.get('/search',validationMiddleware,controllers.search)
 // 教务系统认证验证码接口
 router.get('/vercode',controllers.vercode);
 
+// 教务系统认证登录接口
+router.get('/prove', controllers.prove);
+
 module.exports = router

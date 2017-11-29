@@ -21,35 +21,35 @@ Page({
 
   login () {
     let that = this;
+    let userData = that.data;
     console.log(that.data);
     wx.request({
-      // url: "http://www.tjoe18.cn:4100/login",
-      url: 'https://fz1b9jc6.qcloud.la/weapp/login',
+      url: 'https://fz1b9jc6.qcloud.la/weapp/prove',
       data: {
-        username: that.data.username,
-        password: that.data.password,
-        verCode: that.data.vercode,
-        session: that.data.session
+        username: userData.username,
+        password: userData.password,
+        verCode: userData.vercode,
+        session: userData.session
       },
       method: 'GET',
       success (res) {
         console.log(res);
-        // if(res.data.result.message == "login success"){
-        //   that.setData({
-        //     name: res.data.result.name
-        //   });
-        //   wx.showToast({
-        //     title: that.data.name + '同学你好',
-        //     icon: 'success',
-        //     duration: 5000
-        //   });
-        // } else {
-        //   wx.showModal({
-        //     title: '登录失败',
-        //     content: '请检查所填写的信息',
-        //   })
-        //   that.getVerImg();
-        // }
+        if(res.data.data.result.message == "login success"){
+          that.setData({
+            name: res.data.data.result.name
+          });
+          wx.showToast({
+            title: userData.name + '同学你好',
+            icon: 'success',
+            duration: 5000
+          });
+        } else {
+          wx.showModal({
+            title: '登录失败',
+            content: '请检查所填写的信息',
+          })
+          that.getVerImg();
+        }
       }
     });
    
@@ -84,10 +84,10 @@ Page({
       method: 'GET',
       success: res => {
           console.log(res);
-        // that.setData({
-        //   verimg: res.data.result.verCode,
-        //   session: res.data.result.session
-        // });
+        that.setData({
+          verimg: res.data.data.result.verCode,
+          session: res.data.data.result.session
+        });
       }
     })
   }

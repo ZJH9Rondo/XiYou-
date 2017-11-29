@@ -1,3 +1,4 @@
+// ---------- 转发验证码请求 ---------- //
 const request = require('request');
 
 module.exports = async ctx => {
