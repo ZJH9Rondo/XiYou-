@@ -2,7 +2,7 @@
     <view class='chatPage'>
         <scroll-view class='messageContainer' scroll-y scroll-into-view="{{lastMessageId}}" scroll-top='999999'>
             <block wx:for="{{chatMessage}}" wx:key = "index" wx:for-item="item">
-                <div class="messageItem">
+                <div id="message{{index}}" class="messageItem">
                     <div wx:if="{{item.type  ===  'receive'}}" class="receive">
                         <div class="userFront">
                         </div>
@@ -23,7 +23,7 @@
         </scroll-view>
         <div class="inputContainer">
             <div class='messageInput'>
-                <input bindinput='getMessageText' auto-focus></input>
+                <input bindchange='getMessageText' value="{{messageContent}}" confirm-type="send" auto-focus></input>
             </div>
             <div class='sendButton' bindtap = 'sendMessage'>
                 <image src='../assets/images/icons/send.png'></image>

@@ -7,19 +7,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    connectText: '正在连接...',
     connectStatus: false,
     searchStatus: false,
-    chatStatus: true,
+    chatStatus: false,
     chatData: [],
-    lastChatId: 0
+    lastChatId: null,
+    searchResult: '我在努力找呦...'
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-      /**
+    /**
      * 连接到Socket
      */
       tunnel = new app.globalData.qcloud.Tunnel(app.globalData.config.service.tunnelUrl)
@@ -57,8 +57,8 @@ Page({
           */
           wx.setStorageSync('self_tunnelId', getSelfTunnelId(tunnel.socketUrl, 'tunnelId'))
           this.setData({
-              connectText: '连接成功',
-              connectStatus: false
+              connectStatus: true,
+              chatStatus: true
           })
       })
 
@@ -67,23 +67,27 @@ Page({
       */
       app.globalData.tunnel.on('speak', speak => {
         let flag = true
-        let tempLastChatId = app.globalData.chatData.length    
+        let that = this
+        let lastChatId
         console.log('chat on speak') 
         for(let i = 0;i < app.globalData.chatData.length;i++){
             if(speak.from == app.globalData.chatData[i].tunnelId){
                 app.globalData.chatData[i].unread_piv++
-                tempLastChatId++
-                this.setData({
-                    lastChatId: tempLastChatId
+                app.globalData.chatData[i].message.push({
+                    type: 'receive',
+                    content: speak.word
                 })
+                lastChatId = 'chat-' + i
                 flag = false
             }
         }
         
         if(flag){
+            lastChatId = (app.globalData.chatData.length>=1) ? app.globalData.chatData.length-- : 0
             app.globalData.chatData.push({
+                id: 'chat-'+ lastChatId,
                 tunnelId: speak.from,
-                unread_piv: 0,
+                unread_piv: 1,
                 message: [
                     {
                         type: 'receive',
@@ -91,10 +95,11 @@ Page({
                     }
                 ]
             })
-            this.setData({
-                lastChatId: app.globalData.chatData.length
-            })
         }
+        this.setData({
+            chatData: app.globalData.chatData,
+            lastChatId: lastChatId
+        })
      })
   },
 
@@ -115,7 +120,7 @@ Page({
     }
     this.setData({
         chatData: app.globalData.chatData,
-        lastChatId: this.data.chatData.length
+        lastChatId: 'chat-0'
     })
   },
 
@@ -123,7 +128,7 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-     
+    
   },
 
   /**
@@ -144,7 +149,7 @@ Page({
   onPullDownRefresh: function () {
     this.setData({
         chatData: app.globalData.chatData,
-        lastChatId: this.data.chatData.length
+        lastChatId: 'chat-0'
     })
   },
 
@@ -172,6 +177,9 @@ startChat: function (event){
     wx.navigateTo({
         url: '../chat/chat',
     })
+    wx.setNavigationBarTitle({
+        title: '神秘人'
+    })
 },
 
 /**
@@ -179,6 +187,9 @@ startChat: function (event){
 */
 searchUser: function (){
     const that  = this
+    this.setData({
+        searchStatus: true
+    })
     app.globalData.qcloud.request({
         url: app.globalData.config.service.searchUrl,
         data: {
@@ -188,27 +199,50 @@ searchUser: function (){
             /**
              * 页面更改，显示搜索结果
             */
-            // this.setData({
-            //     searchStatus: true
-            // })
             let tmpChatData = app.globalData.chatData
-            if(tmpChatData){
-                tmpChatData.push({
-                    tunnelId: res.data.data.chatReceiveUser,
-                    message: []
+            let _length = tmpChatData.length-1
+            let result = res.data.data
+            if(result.chatUser == 'null'){
+                this.setData({
+                    searchResult: '只有您一个人在线 呜呜~~'
                 })
+                setTimeout(function (){
+                    that.setData({
+                        searchStatus: false
+                    })
+                },2000)
             }else{
-                tmpChatData = []
-                tmpChatData.push({
-                    tunnelId: res.data.data.chatReceiveUser,
-                    message: []
+                if(tmpChatData){
+                    tmpChatData.push({
+                        id: 'chat-' + _length,
+                        tunnelId: result.chatUser,
+                        message: []
+                    })
+                }else{
+                    tmpChatData = []
+                    tmpChatData.push({
+                        id: 'chat-0', 
+                        tunnelId: result.chatReceiveUser,
+                        message: []
+                    })
+                }
+                app.globalData.chatData = tmpChatData
+                app.globalData.chatId = result.chatUser
+                this.setData({
+                    searchResult: '我找到啦！'
                 })
+                setTimeout(() => {
+                    wx.navigateTo({
+                        url: '../chat/chat',
+                    })
+                    wx.setNavigationBarTitle({
+                        title: '神秘人'
+                    })
+                    that.setData({
+                        searchStatus: false
+                    })
+                }, 1000);
             }
-            app.globalData.chatData = tmpChatData
-            app.globalData.chatId = res.data.data.chatReceiveUser
-            wx.navigateTo({
-                url: '../chat/chat',
-            })
         },
         fail: err => {
             console.log(err)

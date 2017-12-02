@@ -1,11 +1,11 @@
 <view class="container">
-    <view wx:if="{{connectStatus}}">
-        <text>{{connectText}}</text>
+    <view class='loading' wx:if="{{!connectStatus}}">
+        <image src="../assets/images/loading.gif"></image>
     </view>
     <view class='chatPage' wx:if="{{chatStatus}}">
-        <scroll-view class="chatlist" scroll-y scroll-into-view="{{lastChatId}}" scroll-top="99999">
+        <scroll-view class="chatlist" scroll-y scroll-into-view="{{lastChatId}}" scroll-top="99999" scroll-with-animation="true">
             <block wx:for ="{{chatData}}" wx:key = "index" wx:for-item = "item">
-                <div class="chatItem" bindtap="startChat" data-id="{{item.tunnelId}}">
+                <div id="{{item.id}}" class="chatItem" bindtap="startChat" data-id="{{item.tunnelId}}">
                     <div class="userFront">
                         <div class='unread_piv' wx:if='{{item.unread_piv>0}}'>{{item.unread_piv}}</div>
                         <image src='../assets/images/icons/search.png'></image>
@@ -27,5 +27,10 @@
             <image src='../assets/images/icons/search.png' class='searchIcon'></image>
         </div>
     </view>
-    <div wx:if="{{searchStatus}}" class='searchBackground'></div>
+    <div wx:if="{{searchStatus}}" class='loading searchBg'>
+        <div style="width: 100%">
+            <image src="../assets/images/loading.gif" style="width: 100%"></image>
+            <p style="display: block;text-align: center;color: ">{{searchResult}}</p>
+        </div>
+    </div>
 </view>

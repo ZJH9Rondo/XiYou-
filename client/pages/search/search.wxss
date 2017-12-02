@@ -1,17 +1,14 @@
 /* pages/chat/chat.wxss */
-.searchBackground{
-   position: absolute;
-    width: 100%;
-    height: 100vh;
-    margin: 0 auto;
-    overflow: hidden;
-    display:  block;
-    background: linear-gradient(180deg, #fff, #ccc);
-}
-
 /**
 *   搜索用户界面
 */
+.loading,.searchBg{
+   width: 100%;
+   height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center; 
+}
 .chatPage{
     width: 100%;
     height: auto;
@@ -54,6 +51,9 @@
     background-color: red;
     color: white;
     font-size: 25rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     margin-left: 85rpx;
     margin-top: -15rpx;
@@ -74,7 +74,7 @@
     width: 90%;
     height: 70rpx;
     display: block;
-     overflow: hidden;
+    overflow: hidden;
     text-overflow:ellipsis;
     white-space: nowrap; 
     padding-top: 10rpx; 
@@ -101,4 +101,11 @@
     height: 100%;
     overflow: hidden;
     background-repeat: no-repeat;
+}
+.searchBg{
+    position: absolute;
+    background-color: white;
+    display:  flex;
+    align-items: center;
+    justify-content: center;
 }
