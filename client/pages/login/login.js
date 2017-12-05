@@ -1,3 +1,5 @@
+const app = getApp()
+
 Page({
 
   /**
@@ -22,10 +24,10 @@ Page({
   login () {
     let that = this;
     let userData = that.data;
-    console.log(that.data);
     wx.request({
       url: 'https://fz1b9jc6.qcloud.la/weapp/prove',
       data: {
+        stuWxID: app.globalData.userInfo.openId,
         username: userData.username,
         password: userData.password,
         verCode: userData.vercode,
@@ -43,6 +45,11 @@ Page({
             icon: 'success',
             duration: 5000
           });
+          setTimeout(() => {
+              wx.navigateTo({
+                  url: '../index/index',
+              })
+          },1000)
         } else {
           wx.showModal({
             title: '登录失败',

@@ -19,10 +19,35 @@ App({
                 that.globalData.userInfo = response.data.data
                 that.globalData.config = config
                 that.globalData.qcloud = qcloud
-                console.log(that.globalData.userInfo)
+                console.log('登录成功')
+                qcloud.request({
+                    url: config.service.checkStuUrl,
+                    method: 'GET',
+                    data: {
+                        userWxID: response.data.data.openId
+                    },
+                    success: response => {
+                        console.log('校验成功',response)
+                        if(response.data.data.status){
+                            console.log('6666666666666')
+                        }else{
+                            wx.showToast({
+                                title: '请完成学生认证',
+                            })
+                            setTimeout(() => {
+                                wx.navigateTo({
+                                    url: '../login/login'
+                                })
+                            },1000)
+                        }
+                    },
+                    fail: response => {
+                        console.log('校验发生错误',response)
+                    }
+                })
            },
             fail: response => {
-                console.log(response)
+                console.log('登录失败',response)
             }
        })
     },

@@ -24,7 +24,10 @@ var config = {
         uploadUrl: `https://${host}/weapp/upload`,
 
         // 用户搜索接口
-        searchUrl: `https://${host}/weapp/search`
+        searchUrl: `https://${host}/weapp/search`,
+
+        // 用户认证确认接口
+        checkStuUrl: `https://${host}/weapp/checkStu`
     }
 };
 

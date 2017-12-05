@@ -41,4 +41,7 @@ router.get('/vercode',controllers.vercode);
 // 教务系统认证登录接口
 router.get('/prove', controllers.prove);
 
+// 用户学生身份认证接口
+router.get('/checkStu',validationMiddleware,controllers.checkStu);
+
 module.exports = router

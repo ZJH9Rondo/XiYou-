@@ -1,11 +1,13 @@
 // ---------- 西邮教务系统认证 ---------- //
 const request = require('request');
+const { mysql } = require('../qcloud')
 
 module.exports = async ctx => {
   let username = ctx.query.username;
   let password = ctx.query.password;
   let verCode = ctx.query.verCode;
   let session = ctx.query.session;
+  let userWxID = ctx.query.stuWxID;
   let result = '';
   
   if(!username || !password || !verCode || !session){
@@ -21,7 +23,9 @@ module.exports = async ctx => {
       })
     }
     result = await prove();
+    await mysql('userStu').insert({ open_id: userWxID, stuNumber: username})    
   }
+
 
   ctx.state.data = result;
 }
