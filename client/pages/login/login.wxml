@@ -2,6 +2,10 @@
 
 <view class='login'>
 
+  <view class='header'>
+    <image class='header-img' src='./../assets/images/1.png'></image>
+  </view>
+
   <view class='content'>
     <input class='username' bindinput='usernameInput' placeholder='学号'></input>
 
