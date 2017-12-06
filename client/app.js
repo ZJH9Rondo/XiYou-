@@ -27,10 +27,7 @@ App({
                         userWxID: response.data.data.openId
                     },
                     success: response => {
-                        console.log('校验成功',response)
-                        if(response.data.data.status){
-                            console.log('6666666666666')
-                        }else{
+                        if(!response.data.data.status){
                             wx.showToast({
                                 title: '请完成学生认证',
                             })
@@ -39,10 +36,17 @@ App({
                                     url: '../login/login'
                                 })
                             },1000)
+                        }else{
+                            wx.navigateTo({
+                                url: '../write/write'
+                            })
                         }
                     },
                     fail: response => {
-                        console.log('校验发生错误',response)
+                        console.log(response)
+                        wx.showToast({
+                            title: '认证失败，请重试！'
+                        })
                     }
                 })
            },

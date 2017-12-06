@@ -1,0 +1,27 @@
+<view class="container">
+    <view class="holelist">
+       <block wx:for="{{holes}}" wx:key="index" wx:for-item="item">
+            <div class="hole">
+                <div class="title">
+                    <div class="front">
+                        <image src="{{item.avatar}}"/>
+                    </div>
+                    <text>{{item.user}}</text>
+                </div>
+                <p class="content">
+                    {{item.content}}
+                </p>
+                <div class="footer">
+                    <text>{{item.create}}</text>
+                    <p class="comment">评论：({{item.comment}})</p>
+                </div>
+            </div>
+       </block>
+       <div class="loadmore" bindtap="loadmore">
+            <text>{{loadText}}</text>
+       </div>
+    </view>
+    <div class="write" bindtap="createHole">
+        <image src="../assets/images/icons/write.png"/>
+    </div>
+</view>

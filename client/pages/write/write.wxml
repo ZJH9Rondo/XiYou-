@@ -1,0 +1,11 @@
+<view class="container">
+    <view class="write">
+        <div class="form-box">
+            <textarea class="edit" max-length="-1" placeholder="有什么想说的吗？快写下来吧～" />
+            <div class="uploadIMG">
+                <image src="../assets/images/icons/photo.png" />
+            </div>
+        </div>
+        <button type="default" size="defaultSize">发布</button>        
+    </view>
+</view>

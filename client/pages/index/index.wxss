@@ -10,10 +10,9 @@
 /**菜单列表**/
 .chooseMenu{
     width: 100%;
-    height: 200rpx;
+    height: auto;
     min-height: 200rpx;
     display: flex;
-    flex-wrap: wrap;
     align-content: space-between;
 }
 .menuItem{
