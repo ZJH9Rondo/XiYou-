@@ -38,7 +38,7 @@ App({
                             },1000)
                         }else{
                             wx.navigateTo({
-                                url: '../treehole/treehole'
+                                url: '../write/write'
                             })
                         }
                     },
