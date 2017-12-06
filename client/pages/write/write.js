@@ -1,4 +1,5 @@
-/**快递服务**/
+const app = getApp()
+
 Page({
 
   /**

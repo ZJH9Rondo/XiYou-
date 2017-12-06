@@ -2,11 +2,12 @@
     "pages": [
         "pages/index/index",
         "pages/lost/lost",
-        "pages/express/express",
+        "pages/treehole/treehole",
         "pages/used/used",
         "pages/search/search",
         "pages/login/login",
-        "pages/chat/chat"
+        "pages/chat/chat",
+        "pages/write/write"
     ],
     "window": {
         "backgroundTextStyle": "dark",

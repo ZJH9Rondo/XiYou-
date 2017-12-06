@@ -18,9 +18,9 @@
     </div>
      <div class="menuItem">
         <div class="item">
-            <navigator url='../express/express' hover-class='none'  style='height: 100%;'>
-                 <image class='itemIcon' src='../assets/images/icons/express.png'></image>
-                 <p class="itemTitle">快递服务</p>
+            <navigator url='../treehole/treehole' hover-class='none'  style='height: 100%;'>
+                 <image class='itemIcon' src='../assets/images/icons/treehole.png'></image>
+                 <p class="itemTitle">树 洞</p>
             </navigator>
         </div>
     </div>
@@ -28,7 +28,7 @@
         <div class="item">
             <navigator url='../lost/lost' style='height: 100%;' hover-class='none'>
                 <image class='itemIcon' src='../assets/images/icons/lost.png'></image>
-                 <p class="itemTitle">失物招领</p>
+                <p class="itemTitle">失物招领</p>
             </navigator>
         </div>
     </div>
@@ -48,8 +48,8 @@
     </div>
     <block wx:for="{{newsList}}" wx:for-index = "index" wx:key="index">
          <div class="newsItem">
-        <image class='newsImage' src='{{item.newsImgURL}}'></image>
-        <div class="newsContent">
+            <image class='newsImage' src='{{item.newsImgURL}}'></image>
+            <div class="newsContent">
                 <p class="newsUser">
                     <image class='userFront' src='{{item.newsUserInfo}}'></image>
                      <span class="userName">{{item.newsUser}}</span>

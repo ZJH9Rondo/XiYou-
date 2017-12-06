@@ -1,0 +1,120 @@
+.holelist{
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+/*
+*   hole style
+**/
+.hole{
+    width: 100%;
+    height: auto;
+    max-height: 250rpx;
+    display: block;
+    border-bottom: 1rpx solid #cccccc;
+    padding-top: 20rpx;
+}
+/*
+*   hole title style
+**/
+.title{
+    width: 100%;
+    height: 50rpx;
+}
+.front{
+    width: 50rpx;
+    height: 50rpx;
+    display: block;
+    border-radius: 5rpx;
+    float: left;
+    overflow: hidden;
+    margin-left: 20rpx;
+}
+.front>image{
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+}
+.title>text{
+    padding-left: 20rpx;
+    font-size: 28rpx;
+    color: #cccccc;
+}
+/*
+*   hole content style
+**/
+/*
+*   public style
+**/
+.content,.footer{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.content{
+    clear: both;
+    width: 97%;
+    height: auto;
+    min-height: 60rpx;
+    max-height: 130rpx;
+    font-size: 30rpx;
+    word-spacing: 1rpx;
+    padding-top: 15rpx;
+    /*
+    *   多行文本省略
+    **/
+    text-indent: 50rpx;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+/*
+*   hole footer style
+**/
+.footer{
+    width: 92%;
+    margin-top: 10rpx;
+    height: 50rpx;
+    font-size: 26rpx;
+}
+.comment{
+    float: right;
+}
+/*
+*   loadmore tips 
+**/
+.loadmore{
+    width: 100%;
+    height: 40rpx;
+    display: block;
+    font-size: 24rpx;
+    color: blue;
+    background-color: #cccccc;
+    text-align: center;
+}
+/*
+*   write button
+**/
+.write{
+    width: 100rpx;
+    height: 100rpx;
+    display: block;
+    border-radius: 50%;
+    position: fixed;
+    left: 100%;
+    bottom: 30rpx;    
+    margin-left: -120rpx;
+    background-color: pink;
+}
+.write>image{
+    width: 60rpx;
+    height: 60rpx;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}

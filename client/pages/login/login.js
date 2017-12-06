@@ -6,12 +6,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    username: '',
-    password: '',
-    vercode: '',
-    session: '',
-    verimg: '',
-    name: ''
+    username: null,
+    password: null,
+    vercode: null,
+    session: null,
+    verimg: null,
+    name: null
   },
 
   /**
