@@ -8,7 +8,7 @@
 **/
 .form-box{
     width: 95%;
-    height: 500rpx;
+    height: 550rpx;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -19,10 +19,12 @@
     width: 100%;
     height: 300rpx;
     display: block;
+    font-size: 30rpx;
+    line-height: 15rpx;
 }
 .uploadIMG{
-    width: 150rpx;
-    height: 150rpx;
+    width: 120rpx;
+    height: 120rpx;
     display: block;
     margin-left: 50rpx;
     margin-top: 20rpx;
@@ -38,5 +40,49 @@
 button{
     width: 90%;
     margin-top: 50rpx;
-    background-color: pink !important;
+    background-color: #FA6570 !important;
+    color: white !important;
+}
+/*
+*   isanonymous style
+**/
+.write-about{
+    width: 100%;
+    height: 70rpx;
+    display: block;
+    margin-top: 20rpx;
+}
+.hole-location{
+    width: auto;
+    height: 70rpx;
+    display: block;
+    overflow: hidden;
+    float: left;
+    margin-left: 30rpx;
+    color: #cccccc;
+}
+.where{
+    margin-top: 10rpx;
+    padding-left: 10rpx;
+    display: inline-block;
+    font-size: 32rpx;
+}
+.location{
+    width: 40rpx;
+    height: 50rpx;
+    margin-top: 10rpx;
+    display: block;
+    float: left;
+}
+.location-icon{
+    width: 40rpx;
+    height: 50rpx;
+    background-repeat: no-repeat;
+}
+.anonymous{
+    width: auto;
+    height: 70rpx;
+    display: block;
+    color: #FA6570;
+    float: right;
 }

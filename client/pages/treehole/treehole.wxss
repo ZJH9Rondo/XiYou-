@@ -106,7 +106,7 @@
     left: 100%;
     bottom: 30rpx;    
     margin-left: -120rpx;
-    background-color: pink;
+    background-color: #FA6570;
 }
 .write>image{
     width: 60rpx;
