@@ -2,18 +2,22 @@
 
 <view class='login'>
 
-  <view class='header'>
-    <image class='header-img' src='./../assets/images/1.png'></image>
-  </view>
-
   <view class='content'>
-    <input class='username' bindinput='usernameInput' placeholder='学号'></input>
+  
+    <view class='content-box'>
+      <input class='username' bindinput='usernameInput' placeholder='学号'></input>
+    </view>
 
-    <input class='password' type='password' bindinput='passwordInput' placeholder='教务系统密码'></input>
+    <view class='content-box'>
+      <input class='password' type='password' bindinput='passwordInput' placeholder='教务系统密码'></input>
 
-    <input class='vercode'  bindinput='vercodeInput' placeholder='验证码'></input>
+    </view>
 
-    <image class='verimg' bindtap="getVerImg" src='{{verimg}}'></image>
+    <view class='content-box'>
+       <input class='vercode'  bindinput='vercodeInput' placeholder='验证码'></input>
+       <image class='verimg' bindtap="getVerImg" src='{{verimg}}'></image>
+    </view>
+
 
     <button class='loginbtn' bindtap='login'>登录验证</button>
   </view>

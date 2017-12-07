@@ -1,7 +1,7 @@
  Page{
   width: 100%;
   height: 100%;
-  background-color: #F2F2F2;
+  /* background-color: #F2F2F2; */
 } 
 
 .login{
@@ -21,31 +21,43 @@
 .content{
   display: flex;
   width: 80%;
+  margin-top: 150px;
   margin-left: 10%;
   flex-wrap: wrap;
   justify-content: center; 
 }
 
-.content>input{
+.content-box{
   width: 100%;
-  height: 40px;
-  font-size: 20px;
-  margin-top: 10px;
-  text-align: center;
-  vertical-align: bottom;
-  border-bottom: solid 1px #AAAAAA;
+  display: flex;
 }
 
- .content>image{
-  position: relative;
-  top: -46px;
-  left: 72%;
-  width: 80px;
+.content-box>input{
+  width: 100%;
   height: 40px;
+  padding: 0 0 0 5%;
+  font-size: 16px;
+  margin-top: 10px;
+  color: #FA6570;
+  vertical-align: bottom;
+  border: solid 1px #DCDFE5;
+}
+
+.content-box>image{
+  width: 25%;
+  height: 42px;
   background-color: #666;
-  z-index: 999;
-} 
+  margin-top: 10px;
+  /* z-index: 999; */
+}
+
+.vercode{
+  width: 75%!important;
+}
 
 .content>button{
   margin-top: 20px;
+  width: 100%;
+  color: white;
+  background-color: #FA6570;
 }
