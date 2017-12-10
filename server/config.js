@@ -35,11 +35,11 @@ const CONF = {
          * 新加坡：sg
          * @see https://www.qcloud.com/document/product/436/6224
          */
-        region: 'cn-south',
+        region: 'cn-east',
         // Bucket 名称
-        fileBucket: 'qcloudtest',
+        fileBucket: 'wx2017',
         // 文件夹
-        uploadFolder: ''
+        uploadFolder: '/'
     },
 
     // 微信登录态有效期

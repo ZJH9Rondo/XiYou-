@@ -23,18 +23,20 @@
     line-height: 15rpx;
 }
 .uploadIMG{
-    width: 120rpx;
-    height: 120rpx;
-    display: block;
-    margin-left: 50rpx;
+    width: 130rpx;
+    height: 130rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20rpx;
     margin-top: 20rpx;
     overflow: hidden;
     border-radius: 10rpx;
     border: 1px dotted #cccccc;
 }
 .uploadIMG>image{
-    width: 100%;
-    height: 100%;
+    width: 75%;
+    height: 75%;
     background-repeat: no-repeat;
 }
 button{
@@ -42,6 +44,28 @@ button{
     margin-top: 50rpx;
     background-color: #FA6570 !important;
     color: white !important;
+}
+/*
+*   hole images display temp
+**/
+.holeIMG-list{
+    width: 100%;
+    height: 150rpx;
+    display: block;
+}
+.holeIMG-item{
+    width: 120rpx;
+    height: 120rpx;
+    margin-left: 20rpx;
+    display: inline-block;
+    border-radius: 5rpx;
+}
+.chooseIMG-tips{
+    color: #FA6570;
+    font-size: 24rpx;
+    padding-top: 10rpx;
+    padding-left: 20rpx;
+    display: block;
 }
 /*
 *   isanonymous style
@@ -65,7 +89,7 @@ button{
     margin-top: 10rpx;
     padding-left: 10rpx;
     display: inline-block;
-    font-size: 32rpx;
+    font-size: 30rpx;
 }
 .location{
     width: 40rpx;

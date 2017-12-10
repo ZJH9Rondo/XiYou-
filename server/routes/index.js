@@ -44,4 +44,7 @@ router.get('/prove', controllers.prove);
 // 用户学生身份认证接口
 router.get('/checkStu',validationMiddleware,controllers.checkStu);
 
+// 用户发布树洞接口
+router.post('/newHole',validationMiddleware,controllers.newHole);
+
 module.exports = router

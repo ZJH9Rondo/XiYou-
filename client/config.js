@@ -27,7 +27,10 @@ var config = {
         searchUrl: `https://${host}/weapp/search`,
 
         // 用户认证确认接口
-        checkStuUrl: `https://${host}/weapp/checkStu`
+        checkStuUrl: `https://${host}/weapp/checkStu`,
+
+        // 用户发布树洞接口
+        newHoleUrl: `https://${host}/weapp/newHole`
     }
 };
 

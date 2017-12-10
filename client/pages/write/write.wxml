@@ -1,9 +1,15 @@
 <view class="container">
     <view class="write">
         <div class="form-box">
-            <textarea class="edit" maxlength="-1" placeholder="有什么想说的吗？快写下来吧～" />
-            <div class="uploadIMG">
-                <image src="../assets/images/icons/photo.png" />
+            <textarea class="edit" bindinput="getHoleContent" maxlength="-1" placeholder="有什么想说的吗？快写下来吧～"/>
+            <div wx:if="{{!chooseIMGStatus}}" class="uploadIMG" bindtap="chooseIMG">
+                <image src="../assets/images/icons/loadIMG.png" />
+            </div>
+            <div wx:if="{{chooseIMGStatus}}" class="holeIMG-list">
+                <block wx:for="{{holeImagesPath}}" wx:key="index" wx:for-item="item">
+                    <image class="holeIMG-item" src="{{item}}"/>
+                </block>
+                <text wx:if="{{chooseIMGStatus}}" class="chooseIMG-tips">提示：您最多可以携带三张图片。</text>
             </div>
             <div class="write-about">
                 <div class="hole-location">
@@ -14,10 +20,10 @@
                 </div>
                 <div class="anonymous">
                     <text style="font-size: 32rpx">匿名发布</text>
-                    <switch checked="false" color="#FA6570"/>
+                    <switch bindchange="useAnonymous" color="#FA6570"/>
                 </div>
             </div>
         </div>
-        <button type="default" size="defaultSize">发布</button>        
+        <button type="default" loading="{{loading}}" size="defaultSize" bindtap="sendHole">{{sendButton_Text}}</button>        
     </view>
 </view>

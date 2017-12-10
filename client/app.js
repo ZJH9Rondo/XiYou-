@@ -19,7 +19,12 @@ App({
                 that.globalData.userInfo = response.data.data
                 that.globalData.config = config
                 that.globalData.qcloud = qcloud
+                /**
+                * 存储用户 open_id
+                */
+                wx.setStorageSync('open_id',response.data.data.openId)
                 console.log('登录成功')
+                
                 qcloud.request({
                     url: config.service.checkStuUrl,
                     method: 'GET',
