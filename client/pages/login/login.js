@@ -24,6 +24,12 @@ Page({
   login () {
     let that = this;
     let userData = that.data;
+    if(userData.username && userData.password && userData.vercode){
+      wx.showModal({
+        title: '登录失败',
+        content: '请填写信息',
+      })
+    }
     wx.request({
       url: 'https://fz1b9jc6.qcloud.la/weapp/prove',
       data: {
