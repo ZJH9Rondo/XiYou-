@@ -1,5 +1,14 @@
 <view class="container">
     <view class="write">
+        <div class="release-tips" wx:if="{{releaseFAIL}}" bindtap="hideReleaseTips">
+            <div class="release-tips-icon">
+                <image src="../assets/images/icons/warning.png" />            
+            </div>
+            <text>{{releaseFailText}}</text>
+            <div class="release-tips-icon close">
+                <image src="../assets/images/icons/close.png" />            
+            </div>
+        </div>
         <div class="form-box">
             <textarea class="edit" bindinput="getHoleContent" maxlength="-1" placeholder="有什么想说的吗？快写下来吧～"/>
             <div wx:if="{{!chooseIMGStatus}}" class="uploadIMG" bindtap="chooseIMG">
@@ -9,17 +18,17 @@
                 <block wx:for="{{holeImagesPath}}" wx:key="index" wx:for-item="item">
                     <image class="holeIMG-item" src="{{item}}"/>
                 </block>
-                <text wx:if="{{chooseIMGStatus}}" class="chooseIMG-tips">提示：您最多可以携带三张图片。</text>
+                <text wx:if="{{chooseIMGStatus}}" class="chooseIMG-tips">提示：您最多可以携带2张图片。</text>
             </div>
             <div class="write-about">
                 <div class="hole-location">
                     <div class="location">
                         <image class="location-icon" src="../assets/images/icons/location.png"/>                    
                     </div>
-                    <text class="where">来自西邮树洞</text>
+                    <text class="where">来自未知的树洞</text>
                 </div>
                 <div class="anonymous">
-                    <text style="font-size: 32rpx">匿名发布</text>
+                    <text style="font-size: 32rpx;padding-right: 5rpx">匿名发布</text>
                     <switch bindchange="useAnonymous" color="#FA6570"/>
                 </div>
             </div>

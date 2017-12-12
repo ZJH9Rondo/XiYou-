@@ -11,6 +11,8 @@ Page({
     holeImagesPath: [],
     isAnonymous: false,
     loading: false,
+    releaseFAIL: false,
+    releaseFailText: '',
     sendButton_Text: '发布'
   },
 
@@ -92,7 +94,7 @@ Page({
      * 保存文件信息
      */
     wx.chooseImage({
-      count: 3,
+      count: 2,
       sizeType: ['commpressed'],
       success: res => {
         console.log(res)
@@ -149,7 +151,6 @@ Page({
        * @param {留言列表} comments 
        */
       function releaseHole(holeContent,holeImagesPath,isAnonymous){
-        console.log(holeContent)
         app.globalData.qcloud.request({
           url: app.globalData.config.service.newHoleUrl,
           method: 'POST',
@@ -161,7 +162,6 @@ Page({
             comments: []
           },
           success: res => {
-            console.log('发布成功',res)
             that.setData({
               loading: false,
               sendButton_Text: '发布'
@@ -169,6 +169,12 @@ Page({
           },
           fail: res => {
             console.log('发布失败',res)
+            that.setData({
+              releaseFAIL: true,
+              releaseFailText: '树洞发布失败！请重试',
+              loading: false,
+              sendButton_Text: '发布'
+            })
           }
         })
       }
@@ -180,22 +186,35 @@ Page({
             sendButton_Text: '上传图片中...'
           })
           
+          /**
+           * 满足多张图片
+           */
           for(let i = 0;i < that.data.holeImagesPath.length; i++){
             wx.uploadFile({
               url: app.globalData.config.service.uploadUrl,
               filePath: that.data.holeImagesPath[i],
               name: 'file',
               success: res => {
-                console.log('图片上传成功',res)
+                /**
+                 * 图片上传成功的回调函数
+                 * 将图片在线访问的 CDN URL 存储后上传至数据库保存
+                 */
                 let data = JSON.parse(res.data)
-                imgURL.push(data.data.imgUrl)
-                console.log(imgURL)
+                let CDN_url = 'http://wx2017-1252802748.file.myqcloud.com/' + data.data.name
+                imgURL.push(CDN_url)
+                
                 if(i == that.data.holeImagesPath.length - 1){
                   releaseHole(that.data.holeContent,imgURL,that.data.isAnonymous)
                 }
               },
               fail: res => {
                 console.log('图片上传失败',res)
+                that.setData({
+                  releaseFAIL: true,
+                  releaseFailText: '图片上传失败！请重试',
+                  loading: false,
+                  sendButton_Text: '发布'
+                })
               }
             })
           }
@@ -203,7 +222,22 @@ Page({
           releaseHole(that.data.holeContent,imgURL,that.data.isAnonymous)
         }
       }else{
+        that.setData({
+          releaseFAIL: true,
+          loading: false,
+          releaseFailText: '你什么都不说是看不起我树洞？',
+          sendButton_Text: '发布'
+        })
         return;
       }
+  },
+
+  /**
+   * 用户关闭发布提示
+   */
+  hideReleaseTips: function (){
+    this.setData({
+      releaseFAIL: false 
+    })
   }
 })

@@ -8,6 +8,11 @@ const CONF = {
     // 微信小程序 App Secret
     appSecret: '988dedac872abaecdde80babf66d996d',
 
+    // 腾讯云 Bucket 配置密钥
+    qcloudAppId: '1252802748',
+    qcloudSecretId: 'AKID8A6LPIKd3HJ8lEzYgcPDrKdjiaJplr6C',
+    qcloudSecretKey: '4IMFwW0IhyLXXLzQn01qSzKUUIz2ub9b',
+    
     // 是否使用腾讯云代理登录小程序
     useQcloudLogin: true,
 
